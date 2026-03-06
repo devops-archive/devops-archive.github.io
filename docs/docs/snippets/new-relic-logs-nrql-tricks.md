@@ -17,7 +17,7 @@ To list all HTTP 500 errors from individual IP Address to "/graphql" URL based o
 ```
 FROM Log 
 SELECT count(*) 
-WHERE filePath = '/var/log/platform/qzwe4gmdjp2mg/access.log' 
+WHERE filePath = '/var/log/platform/magento_cloud_project_id/access.log' 
   AND ADBE_Environment = 'production'
   AND message LIKE '%/graphql%'
   AND message LIKE '%" 500 %'
