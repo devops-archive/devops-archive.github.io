@@ -70,6 +70,7 @@ nav:
       - 'Collect HTTP Stats usng cURL': 'snippets/curl-stats.md'
       - 'Firefox user data directory error': 'snippets/custom-home-dir-ubuntu-firefox-err.md'
       - 'Ubuntu AppImage SUID sandbox helper binary error': 'snippets/suid-sandbox-helper-error-ubuntu.md'
+      - 'New Relic Logs NRQL Tricks': 'snippets/new-relic-logs-nrql-tricks.md'
   - 'Containers':
       - 'Index': 'containers.md'
       - 'Docker':
