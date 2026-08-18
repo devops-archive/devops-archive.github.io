@@ -1577,7 +1577,7 @@
 <p>Continuation of https://devops-archive.github.io/containers/kubernetes/kubectl/cheatsheets/kubectl-basic-part-1/</p>
 <h2 id="format-kubectl-output-as-rows-and-columns">Format Kubectl output as rows and columns<a class="headerlink" href="#format-kubectl-output-as-rows-and-columns" title="Permanent link">⚓︎</a></h2>
 <h3 id="formatting-output-as-rows">Formatting Output as Rows<a class="headerlink" href="#formatting-output-as-rows" title="Permanent link">⚓︎</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>kubectl get pods -n newrelic -o jsonpath=&#39;{range .items[*]}{&quot;pod: &quot;}{.metadata.name}{&quot;\n&quot;}{range .spec.containers[*]}{&quot;\tname: &quot;}{.name}{&quot;\n\timage: &quot;}{.image}{&quot;\n&quot;}{end}&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>kubectl get pods -n newrelic -o jsonpath='{range .items[*]}{"pod: "}{.metadata.name}{"\n"}{range .spec.containers[*]}{"\tname: "}{.name}{"\n\timage: "}{.image}{"\n"}{end}'
 </span></code></pre></div>
 <p>This should give output as below:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pod: kelvin-54b954889c-4zsz5
@@ -1649,7 +1649,7 @@
 </span><span id="__span-1-67"><a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a>        image: gcr.io/pixie-oss/pixie-prod/vizier/query_broker_server_image:0.13.4
 </span></code></pre></div>
 <h3 id="formatting-output-as-columns">Formatting Output as Columns<a class="headerlink" href="#formatting-output-as-columns" title="Permanent link">⚓︎</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl get pod -n newrelic -o=&quot;custom-columns=PODS:.metadata.name,NAME:.spec.containers[*].name,IMAGE:.spec.containers[*].image,INIT-CONTAINERS:.spec.initContainers[*].name,CONTAINERS:.spec.containers[*].name&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl get pod -n newrelic -o="custom-columns=PODS:.metadata.name,NAME:.spec.containers[*].name,IMAGE:.spec.containers[*].image,INIT-CONTAINERS:.spec.initContainers[*].name,CONTAINERS:.spec.containers[*].name"
 </span></code></pre></div>
 <p>This should give output as below:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>PODS                                                 NAME                     IMAGE                                                                                                                                             INIT-CONTAINERS    CONTAINERS
@@ -1674,7 +1674,7 @@
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>vizier-query-broker-7f57fbfc6d-5qckt                 app                      gcr.io/pixie-oss/pixie-prod/vizier/query_broker_server_image:0.13.4                                                                               cc-wait,mds-wait   app
 </span></code></pre></div>
 <h3 id="formatting-output-as-lines">Formatting Output as Lines<a class="headerlink" href="#formatting-output-as-lines" title="Permanent link">⚓︎</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl get pods/nri-bundle-nri-kube-events-695cc855d4-jtdtk -n newrelic -o jsonpath=&#39;{range .spec.containers[*]}{.name}{&quot;\n&quot;}{end}&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl get pods/nri-bundle-nri-kube-events-695cc855d4-jtdtk -n newrelic -o jsonpath='{range .spec.containers[*]}{.name}{"\n"}{end}'
 </span></code></pre></div>
 <p>This should give output as below:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>kube-events

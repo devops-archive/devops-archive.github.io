@@ -1585,12 +1585,12 @@ Don't use this external to one host, when using plain-text protocols (unencrypte
 <p>source: <code>http://www.dest-unreach.org/socat/</code></p>
 <h2 id="ncat">ncat<a class="headerlink" href="#ncat" title="Permanent link">⚓︎</a></h2>
 <p>This is for NMap <code>Ncat</code> and not <code>nc</code> , you can use the below command to listen on port <code>8080</code> and the forward traffic to port <code>80</code>.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ncat -l localhost 8080 --sh-exec &quot;ncat example.org 80&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ncat -l localhost 8080 --sh-exec "ncat example.org 80"
 </span></code></pre></div>
 <p>source: <code>https://nmap.org/ncat/</code></p>
 <h2 id="goproxy">goproxy<a class="headerlink" href="#goproxy" title="Permanent link">⚓︎</a></h2>
 <p>You can use below command to listen on port <code>1234</code> and forward it to port <code>4567</code> on address <code>10.10.0.1</code> (a local IP Address in your box).</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>proxy tcp -p &quot;:1234&quot; -T tcp -P &quot;10.10.0.1:4567&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>proxy tcp -p ":1234" -T tcp -P "10.10.0.1:4567"
 </span></code></pre></div>
 <p>source: <code>https://snail007.host900.com/goproxy/manual/#/</code> and <code>https://github.com/snail007/goproxy/releases</code></p>
 <h2 id="go-gost">go-gost<a class="headerlink" href="#go-gost" title="Permanent link">⚓︎</a></h2>

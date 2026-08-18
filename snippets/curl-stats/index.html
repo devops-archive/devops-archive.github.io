@@ -1568,13 +1568,13 @@ Lets create the contents for the statistics file.</p>
 </span></code></pre></div>
 <h2 id="execution">Execution<a class="headerlink" href="#execution" title="Permanent link">⚓︎</a></h2>
 <p>We can execute the cURL as below to collect the HTTP statistics.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl -w &quot;@${HOME}/projects/devops-archive/http-delay/curl-stats.txt&quot; -o /dev/null -s &quot;http://wordpress.com/&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl -w "@${HOME}/projects/devops-archive/http-delay/curl-stats.txt" -o /dev/null -s "http://wordpress.com/"
 </span></code></pre></div>
 <p>We can create this cURL command as a bash script.</p>
 <p>Create a file : <code>~/bin/httpstats</code> with below content.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>#!/bin/bash
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>curl -w @- -o /dev/null -s &quot;$@&quot; &lt;&lt;&#39;EOF&#39;
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>curl -w @- -o /dev/null -s "$@" &lt;&lt;'EOF'
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    time_namelookup:  %{time_namelookup}\n
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>       time_connect:  %{time_connect}\n
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    time_appconnect:  %{time_appconnect}\n
@@ -1593,9 +1593,9 @@ Lets create the contents for the statistics file.</p>
 </span></code></pre></div>
 <h1 id="other-useful-one-liners">Other useful one-liners<a class="headerlink" href="#other-useful-one-liners" title="Permanent link">⚓︎</a></h1>
 <p>Collect <code>total time</code> taken:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>curl -o /dev/null -s -w &#39;Total: %{time_total}s\n&#39;  https://www.google.com
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>curl -o /dev/null -s -w 'Total: %{time_total}s\n'  https://www.google.com
 </span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>curl -o /dev/null -s -w &#39;Establish Connection: %{time_connect}s\nTTFB: %{time_starttransfer}s\nTotal: %{time_total}s\n&#39;  https://www.google.com
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>curl -o /dev/null -s -w 'Establish Connection: %{time_connect}s\nTTFB: %{time_starttransfer}s\nTotal: %{time_total}s\n'  https://www.google.com
 </span></code></pre></div>
 
 

@@ -1558,14 +1558,14 @@
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>[21824:0430/094557.661436:FATAL:setuid_sandbox_host.cc(158)]
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>The SUID sandbox helper binary was found, but is not configured correctly.
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Rather than run without sandboxing I&#39;m aborting now. You need to make sure that /tmp/.mount_ObsidiOpBPaM/chrome-sandbox is owned by root and has mode 4755.
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Rather than run without sandboxing I'm aborting now. You need to make sure that /tmp/.mount_ObsidiOpBPaM/chrome-sandbox is owned by root and has mode 4755.
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Trace/breakpoint trap (core dumped)
 </span></code></pre></div>
 <h2 id="fix">FIX<a class="headerlink" href="#fix" title="Permanent link">⚓︎</a></h2>
 <p>Probably the best way to solve the problem is to create an apparmor profile which allows the application to make use of unprivileged usernamespaces.</p>
 <p>Create the file named <code>/etc/apparmor.d/obsidianappimage</code> with the following content:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># This profile allows everything and only exists to give the
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># application a name instead of having the label &quot;unconfined&quot;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># application a name instead of having the label "unconfined"
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>abi &lt;abi/4.0&gt;,
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>include &lt;tunables/global&gt;

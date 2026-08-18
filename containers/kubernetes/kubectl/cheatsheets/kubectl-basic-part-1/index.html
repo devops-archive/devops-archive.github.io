@@ -1586,10 +1586,10 @@
 <li>https://unofficial-kubernetes.readthedocs.io/en/latest/user-guide/jsonpath/</li>
 </ul>
 <h3 id="printing-the-names-of-kubernetes-deployments">Printing the names of kubernetes deployments<a class="headerlink" href="#printing-the-names-of-kubernetes-deployments" title="Permanent link">⚓︎</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>kubectl get -n kube-system deploy -o jsonpath=&#39;{range .items[*]}{.metadata.name}{&quot;\n&quot;}{end}&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>kubectl get -n kube-system deploy -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
 </span></code></pre></div>
 <p>See the sample output</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$ kubectl get -n newrelic deploy -o jsonpath=&#39;{range .items[*]}{.metadata.name}{&quot;\n&quot;}{end}&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$ kubectl get -n newrelic deploy -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>kelvin
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>nri-bundle-kube-state-metrics
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>nri-bundle-nri-kube-events
@@ -1599,10 +1599,10 @@
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>vizier-query-broker
 </span></code></pre></div>
 <h3 id="printing-the-ip-addresses-of-the-all-pods-in-newrelic-namespace">Printing the IP Addresses of the all pods in newrelic namespace<a class="headerlink" href="#printing-the-ip-addresses-of-the-all-pods-in-newrelic-namespace" title="Permanent link">⚓︎</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl get pods -n newrelic -o jsonpath=&#39;{range .items[*]}{.status.podIP}{&quot;\n&quot;}{end}&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl get pods -n newrelic -o jsonpath='{range .items[*]}{.status.podIP}{"\n"}{end}'
 </span></code></pre></div>
 <p>See the sample output</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ kubectl get pods -n newrelic -o jsonpath=&#39;{range .items[*]}{.status.podIP}{&quot;\n&quot;}{end}&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ kubectl get pods -n newrelic -o jsonpath='{range .items[*]}{.status.podIP}{"\n"}{end}'
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>172.16.0.179
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>172.16.1.17
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>172.16.1.198
@@ -1624,10 +1624,10 @@
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>172.16.1.102
 </span></code></pre></div>
 <p>You can use two fields and format it to your liking using whitespace as well.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl get pods -n newrelic -o jsonpath=&#39;{range .items[*]}{.metadata.namespace}{&quot;/&quot;}{.metadata.name}{&quot;,&quot;}{.status.podIP}{&quot;\n&quot;}{end}&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl get pods -n newrelic -o jsonpath='{range .items[*]}{.metadata.namespace}{"/"}{.metadata.name}{","}{.status.podIP}{"\n"}{end}'
 </span></code></pre></div>
 <p>See the sample output</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$ kubectl get pods -n newrelic -o jsonpath=&#39;{range .items[*]}{.metadata.namespace}{&quot;/&quot;}{.metadata.name}{&quot;,&quot;}{.status.podIP}{&quot;\n&quot;}{end}&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$ kubectl get pods -n newrelic -o jsonpath='{range .items[*]}{.metadata.namespace}{"/"}{.metadata.name}{","}{.status.podIP}{"\n"}{end}'
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>newrelic/kelvin-54b954889c-4zsz5,172.16.0.179
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>newrelic/nri-bundle-kube-state-metrics-778f8d7756-6tgzg,172.16.1.17
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>newrelic/nri-bundle-newrelic-logging-9bctl,172.16.1.198

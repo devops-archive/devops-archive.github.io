@@ -1550,9 +1550,9 @@
 <p>Magento cloud does not give us full permissions on their servers, we are left with restricted access.</p>
 <h2 id="warning">Warning<a class="headerlink" href="#warning" title="Permanent link">⚓︎</a></h2>
 <p>Make necessary backups of the media files on the destination magento cloud server.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>BKPTIM=$(date +&quot;%Y-%m-%d_%H-%M-%S&quot;)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>BKPTIM=$(date +"%Y-%m-%d_%H-%M-%S")
 </span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TKT=&quot;JIRA-123&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TKT="JIRA-123"
 </span></code></pre></div>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cd pub/
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>tar -zcf ../var/$TKT.media.backup.$BKPTIM.tar.gz media
@@ -1561,7 +1561,7 @@
 <p>Create a temporary SSH key file on the source magento cloud server.</p>
 <p>Add the SSH Public key in magento cloud project portal under SSH Keys.</p>
 <p>Login to source magento cloud server and then run:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rsync -Pavz -e &quot;ssh -i var/path/to/private_key_rsa&quot; pub/media/* remote_ssh_user@remote.destination.server:/path/to/the/magento/pub/media/
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rsync -Pavz -e "ssh -i var/path/to/private_key_rsa" pub/media/* remote_ssh_user@remote.destination.server:/path/to/the/magento/pub/media/
 </span></code></pre></div>
 
 

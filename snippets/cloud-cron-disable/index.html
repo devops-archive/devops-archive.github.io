@@ -1489,14 +1489,14 @@
 <h1 id="disable-cron-on-magento-enterprise-cloud">Disable Cron on Magento Enterprise Cloud<a class="headerlink" href="#disable-cron-on-magento-enterprise-cloud" title="Permanent link">⚓︎</a></h1>
 <p>Usually crons are by default enabled in the magento configuration. If you have to disable the magento cloud crons.</p>
 <p>Please modify <code>app/etc/env.php</code> and add <code>'enabled' =&gt; 0,</code> under "cron" array as below.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  &#39;cron&#39; =&gt;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  'cron' =&gt;
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  array (
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    &#39;enabled&#39; =&gt; 0,
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    'enabled' =&gt; 0,
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ),
 </span></code></pre></div>
 <p>If the <code>env.php</code> is <code>square-brackets</code> then use below format:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    &#39;cron&#39; =&gt; [
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>        &#39;enabled&#39; =&gt; 0
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    'cron' =&gt; [
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>        'enabled' =&gt; 0
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    ]
 </span></code></pre></div>
 <p>Monitor the cron logs :</p>

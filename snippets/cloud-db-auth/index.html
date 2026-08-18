@@ -1591,29 +1591,29 @@
 
 <h1 id="magento-2x-cloud-db-authentication">Magento 2x Cloud DB Authentication<a class="headerlink" href="#magento-2x-cloud-db-authentication" title="Permanent link">⚓︎</a></h1>
 <h2 id="set-time">Set Time<a class="headerlink" href="#set-time" title="Permanent link">⚓︎</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>BKPTIM=$(date +&quot;%Y-%m-%d_%H-%M-%S&quot;)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>BKPTIM=$(date +"%Y-%m-%d_%H-%M-%S")
 </span></code></pre></div>
 <h2 id="ticket-number">Ticket Number<a class="headerlink" href="#ticket-number" title="Permanent link">⚓︎</a></h2>
 <p>Optionally set ticket number if required.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TKT=&quot;JIRA-123&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TKT="JIRA-123"
 </span></code></pre></div>
 <h2 id="set-authentication-variables">Set Authentication variables:<a class="headerlink" href="#set-authentication-variables" title="Permanent link">⚓︎</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>export DB_NAME=$(grep [\&#39;]db[\&#39;] -A 20 app/etc/env.php | grep dbname | head -n1 | sed &quot;s/.*[=][&gt;][ ]*[&#39;]//&quot; | sed &quot;s/[&#39;][,]//&quot;);
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>export DB_NAME=$(grep [\']db[\'] -A 20 app/etc/env.php | grep dbname | head -n1 | sed "s/.*[=][&gt;][ ]*[']//" | sed "s/['][,]//");
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>export MYSQL_HOST=$(grep [\&#39;]db[\&#39;] -A 20 app/etc/env.php | grep host | head -n1 | sed &quot;s/.*[=][&gt;][ ]*[&#39;]//&quot; | sed &quot;s/[&#39;][,]//&quot;);
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>export MYSQL_HOST=$(grep [\']db[\'] -A 20 app/etc/env.php | grep host | head -n1 | sed "s/.*[=][&gt;][ ]*[']//" | sed "s/['][,]//");
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>export DB_USER=$(grep [\&#39;]db[\&#39;] -A 20 app/etc/env.php | grep username | head -n1 | sed &quot;s/.*[=][&gt;][ ]*[&#39;]//&quot; | sed &quot;s/[&#39;][,]//&quot;);
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>export DB_USER=$(grep [\']db[\'] -A 20 app/etc/env.php | grep username | head -n1 | sed "s/.*[=][&gt;][ ]*[']//" | sed "s/['][,]//");
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>export MYSQL_PWD=$(grep [\&#39;]db[\&#39;] -A 20 app/etc/env.php | grep password | head -n1 | sed &quot;s/.*[=][&gt;][ ]*[&#39;]//&quot; | sed &quot;s/[&#39;]$//&quot; | sed &quot;s/[&#39;][,]//&quot;);
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>export MYSQL_PWD=$(grep [\']db[\'] -A 20 app/etc/env.php | grep password | head -n1 | sed "s/.*[=][&gt;][ ]*[']//" | sed "s/[']$//" | sed "s/['][,]//");
 </span></code></pre></div>
 <h2 id="connect-to-mysql-with-above-set-authentication-variables">Connect to MySQL with above set authentication variables.<a class="headerlink" href="#connect-to-mysql-with-above-set-authentication-variables" title="Permanent link">⚓︎</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mysql -h $MYSQL_HOST -u $DB_USER --password=$MYSQL_PWD $DB_NAME -A
 </span></code></pre></div>
 <h2 id="database-dump">Database Dump<a class="headerlink" href="#database-dump" title="Permanent link">⚓︎</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mysqldump -h $MYSQL_HOST -u $DB_USER --password=$MYSQL_PWD $DB_NAME --opt --single-transaction --skip-lock-tables | sed -e &#39;s/DEFINER[ ]*=[ ]*[^*]*\*/\*/&#39; | gzip &gt; var/backups/$DB_NAME.${BKPTIM}.sql.gz
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mysqldump -h $MYSQL_HOST -u $DB_USER --password=$MYSQL_PWD $DB_NAME --opt --single-transaction --skip-lock-tables | sed -e 's/DEFINER[ ]*=[ ]*[^*]*\*/\*/' | gzip &gt; var/backups/$DB_NAME.${BKPTIM}.sql.gz
 </span></code></pre></div>
 <p>If you want to add the ticket name to the dump as well.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mysqldump -h $MYSQL_HOST -u $DB_USER --password=$MYSQL_PWD $DB_NAME --opt --single-transaction --skip-lock-tables | sed -e &#39;s/DEFINER[ ]*=[ ]*[^*]*\*/\*/&#39; | gzip &gt; var/backups/$TKT.$DB_NAME.${BKPTIM}.sql.gz
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mysqldump -h $MYSQL_HOST -u $DB_USER --password=$MYSQL_PWD $DB_NAME --opt --single-transaction --skip-lock-tables | sed -e 's/DEFINER[ ]*=[ ]*[^*]*\*/\*/' | gzip &gt; var/backups/$TKT.$DB_NAME.${BKPTIM}.sql.gz
 </span></code></pre></div>
 <h2 id="other-useful-flags">Other Useful Flags<a class="headerlink" href="#other-useful-flags" title="Permanent link">⚓︎</a></h2>
 <p>In certian MySQL servers from verion 5.7 and above, we may get permission denied for some nonsensical privileges.</p>
