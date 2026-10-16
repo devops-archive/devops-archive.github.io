@@ -1035,6 +1035,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    New Relic Logs NRQL Tricks
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1051,6 +1069,64 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modify-the-returned-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modify the returned output
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modify the returned output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-aparse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using aparse()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using capture()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1504,6 +1580,40 @@
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  AND message LIKE '%" 500 %'
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>FACET capture(message, r'^(?P&lt;client_ip&gt;[^\s]+).*') 
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>SINCE 1 hour ago
+</span></code></pre></div>
+<h2 id="modify-the-returned-output">Modify the returned output<a class="headerlink" href="#modify-the-returned-output" title="Permanent link">⚓︎</a></h2>
+<p>If we need to modify the output returned by the above NRQL query—for example, to transform the raw access log in the <code>message</code> field into a tabular view containing only the fields we are interested in—we can reformat the output accordingly.</p>
+<h3 id="using-aparse">Using aparse()<a class="headerlink" href="#using-aparse" title="Permanent link">⚓︎</a></h3>
+<p>Using the NRQL <code>aparse()</code> function.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>FROM Log
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>WITH aparse(message, '* - - [*] "* * *" * *') AS (Client_IP, LogTime, Method, URL, Protocol, Status, Bytes)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>SELECT 
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  LogTime AS 'Log Timestamp',
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  Method AS 'HTTP Method',
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  URL AS 'Requested URL',
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  Status AS 'Status Code',
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  capture(message, r'.*?"\s*"(?P&lt;User_Agent&gt;[^"]+)"$') AS 'User Agent'
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>WHERE filePath = '/var/log/platform/magento_cloud_project_id/access.log'
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  AND message LIKE '123.12.123.123%'
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  AND message NOT LIKE '%cookware.html%'
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>SINCE 12 hours ago 
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>LIMIT 5
+</span></code></pre></div>
+<h3 id="using-capture">Using capture()<a class="headerlink" href="#using-capture" title="Permanent link">⚓︎</a></h3>
+<p>Uisng the NRQL <code>capture()</code> function:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>FROM Log
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>WITH capture(message, r'^[^ ]+ - - \[(?P&lt;Timestamp&gt;[^\]]+)\] "(?P&lt;Method&gt;[A-Z]+) (?P&lt;URL&gt;[^ ]+) [^"]+" (?P&lt;Status&gt;\d{3}) .*') AS parsedLog
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>SELECT 
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  parsedLog[Timestamp] AS 'Log Timestamp',
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  parsedLog[Method] AS 'HTTP Method',
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  parsedLog[URL] AS 'Requested URL',
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  parsedLog[Status] AS 'Status Code',
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  capture(message, r'.*?"\s*"(?P&lt;User_Agent&gt;[^"]+)"$') AS 'User Agent'
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>WHERE filePath = '/var/log/platform/magento_cloud_project_id/access.log'
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  AND message LIKE '123.12.123.123%'
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  AND message NOT LIKE '%cookware.html%'
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>SINCE 12 hours ago 
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>LIMIT 5
 </span></code></pre></div>
 
 
