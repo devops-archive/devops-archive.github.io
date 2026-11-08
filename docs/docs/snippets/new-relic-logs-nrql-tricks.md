@@ -37,6 +37,7 @@ Using the NRQL `aparse()` function.
 FROM Log
 WITH aparse(message, '* - - [*] "* * *" * *') AS (Client_IP, LogTime, Method, URL, Protocol, Status, Bytes)
 SELECT 
+  Client_IP AS 'IP Address',
   LogTime AS 'Log Timestamp',
   Method AS 'HTTP Method',
   URL AS 'Requested URL',
@@ -44,19 +45,20 @@ SELECT
   capture(message, r'.*?"\s*"(?P<User_Agent>[^"]+)"$') AS 'User Agent'
 WHERE filePath = '/var/log/platform/magento_cloud_project_id/access.log'
   AND message LIKE '123.12.123.123%'
-  AND message NOT LIKE '%cookware.html%'
+  AND message NOT LIKE '%/graphql'
 SINCE 12 hours ago 
 LIMIT 5
 ```
 
 ### Using capture()
 
-Uisng the NRQL `capture()` function:
+Using the NRQL `capture()` function:
 
 ```
 FROM Log
-WITH capture(message, r'^[^ ]+ - - \[(?P<Timestamp>[^\]]+)\] "(?P<Method>[A-Z]+) (?P<URL>[^ ]+) [^"]+" (?P<Status>\d{3}) .*') AS parsedLog
+WITH capture(message, r'^(?P<Client_IPADDR>[^ ]+) - - \[(?P<Timestamp>[^\]]+)\] "(?P<Method>[A-Z]+) (?P<URL>[^ ]+) [^"]+" (?P<Status>\d{3}) .*') AS parsedLog
 SELECT 
+  parsedLog[Client_IPADDR] AS 'IP Address',
   parsedLog[Timestamp] AS 'Log Timestamp',
   parsedLog[Method] AS 'HTTP Method',
   parsedLog[URL] AS 'Requested URL',
