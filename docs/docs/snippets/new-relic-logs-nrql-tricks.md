@@ -35,14 +35,15 @@ Using the NRQL `aparse()` function.
 
 ```
 FROM Log
-WITH aparse(message, '* - - [*] "* * *" * *') AS (Client_IP, LogTime, Method, URL, Protocol, Status, Bytes)
+WITH aparse(message, '* - - [*] "* * *" * * "*" "*"') AS (Client_IP, LogTime, Method, URL, Protocol, Status, Bytes, Referer, UserAgent)
 SELECT 
   Client_IP AS 'IP Address',
   LogTime AS 'Log Timestamp',
   Method AS 'HTTP Method',
   URL AS 'Requested URL',
   Status AS 'Status Code',
-  capture(message, r'.*?"\s*"(?P<User_Agent>[^"]+)"$') AS 'User Agent'
+  Referer AS 'Referer',
+  UserAgent AS 'UserAgent'
 WHERE filePath = '/var/log/platform/magento_cloud_project_id/access.log'
   AND message LIKE '123.12.123.123%'
   AND message NOT LIKE '%/graphql'
@@ -56,17 +57,18 @@ Using the NRQL `capture()` function:
 
 ```
 FROM Log
-WITH capture(message, r'^(?P<Client_IPADDR>[^ ]+) - - \[(?P<Timestamp>[^\]]+)\] "(?P<Method>[A-Z]+) (?P<URL>[^ ]+) [^"]+" (?P<Status>\d{3}) .*') AS parsedLog
+WITH capture(message, r'^(?P<Client_IPADDR>[^ ]+) - - \[(?P<Timestamp>[^\]]+)\] "(?P<Method>[A-Z]+) (?P<URL>[^ ]+) [^"]+" (?P<Status>\d{3}) (?P<Bytes>[^ ]+) "(?P<Referer>[^ ]+)" "(?P<UserAgent>([^ ]+) [^"]+)"') AS parsedLog
 SELECT 
   parsedLog[Client_IPADDR] AS 'IP Address',
   parsedLog[Timestamp] AS 'Log Timestamp',
   parsedLog[Method] AS 'HTTP Method',
   parsedLog[URL] AS 'Requested URL',
   parsedLog[Status] AS 'Status Code',
-  capture(message, r'.*?"\s*"(?P<User_Agent>[^"]+)"$') AS 'User Agent'
+  parsedLog[Referer] AS 'HTTP Referer',
+  parsedLog[UserAgent] AS 'User Agent'
 WHERE filePath = '/var/log/platform/magento_cloud_project_id/access.log'
-  AND message LIKE '123.12.123.123%'
-  AND message NOT LIKE '%cookware.html%'
-SINCE 12 hours ago 
+  AND parsedLog[Client_IPADDR] = '123.12.123.123'
+  AND parsedLog[URL] NOT LIKE '%/graphql'
+SINCE 30 minutes ago
 LIMIT 5
 ```
