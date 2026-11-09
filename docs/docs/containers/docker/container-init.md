@@ -1,12 +1,14 @@
 # Container Init
 
-At times, we think if only this container acted a little different that its normal.
+Sometimes, we wish a container would behave a little differently from what it was designed to do.
 
-say for example:
+Say for example:
 
-- we need to change the default user defined in `dockerfile` but at the same time we don't want to rebuild the dockerimage.
-- install new packages in a docker image, yet we don't want to build a new image using the source of the original docker image.
-- sometimes when you are lazy and you want to directly manipulate a docker image
+- Change the default user defined in a Dockerfile without having to rebuild the entire Docker image.
+- Install additional packages in an existing Docker image without rebuilding it from the original image's source.
+- Sometimes, you just want to take the lazy route and directly manipulate a Docker image rather than going through the entire build process.
+
+Or basically I wanted to hijack the docker image, I wanted to do it sometimes. That's why I use this script.
 
 ## The Script
 
