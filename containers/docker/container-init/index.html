@@ -1546,13 +1546,14 @@
 
 
 <h1 id="container-init">Container Init<a class="headerlink" href="#container-init" title="Permanent link">⚓︎</a></h1>
-<p>At times, we think if only this container acted a little different that its normal.</p>
-<p>say for example:</p>
+<p>Sometimes, we wish a container would behave a little differently from what it was designed to do.</p>
+<p>Say for example:</p>
 <ul>
-<li>we need to change the default user defined in <code>dockerfile</code> but at the same time we don't want to rebuild the dockerimage.</li>
-<li>install new packages in a docker image, yet we don't want to build a new image using the source of the original docker image.</li>
-<li>sometimes when you are lazy and you want to directly manipulate a docker image</li>
+<li>Change the default user defined in a Dockerfile without having to rebuild the entire Docker image.</li>
+<li>Install additional packages in an existing Docker image without rebuilding it from the original image's source.</li>
+<li>Sometimes, you just want to take the lazy route and directly manipulate a Docker image rather than going through the entire build process.</li>
 </ul>
+<p>Or basically I wanted to hijack the docker image, I wanted to do it sometimes. That's why I use this script.</p>
 <h2 id="the-script">The Script<a class="headerlink" href="#the-script" title="Permanent link">⚓︎</a></h2>
 <p>Then you may need "con-init" or <code>coninit.sh</code> a.k.a "Container Init"</p>
 <p>This is a <code>coninit.sh</code> for alpine linux based containers.</p>
